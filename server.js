@@ -14,8 +14,8 @@ app.post("/chat", async (req, res) => {
     const response = await axios.post(
       "https://api.cohere.ai/v1/chat",
       {
-        message: req.body.message,
-        model: "command-r"
+        model: "command-r",
+        message: req.body.message
       },
       {
         headers: {
@@ -25,7 +25,10 @@ app.post("/chat", async (req, res) => {
       }
     );
 
-    res.json({ reply: response.data.text });
+    const reply =
+      response.data.message.content[0].text;
+
+    res.json({ reply });
 
   } catch (error) {
     console.error(error.response?.data || error.message);
