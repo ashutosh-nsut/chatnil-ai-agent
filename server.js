@@ -25,17 +25,17 @@ app.post("/chat", async (req, res) => {
       }
     );
 
+    console.log("FULL COHERE RESPONSE:");
+    console.log(JSON.stringify(response.data, null, 2));
+
     const reply =
-      response.data.message.content[0].text;
+      response.data.message?.content?.[0]?.text;
 
     res.json({ reply });
 
   } catch (error) {
     console.error(error.response?.data || error.message);
-
-    res.status(500).json({
-      error: "Error calling Cohere"
-    });
+    res.status(500).json({ error: "Error calling Cohere" });
   }
 });
 const PORT = process.env.PORT || 3000;
