@@ -14,7 +14,7 @@ app.post("/chat", async (req, res) => {
     const response = await axios.post(
       "https://api.cohere.ai/v1/chat",
       {
-        model: "command-r-plus-08-2024",
+        model: "command-r-08-2024",
         message: req.body.message
       },
       {
