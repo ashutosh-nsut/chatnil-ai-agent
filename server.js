@@ -28,8 +28,7 @@ app.post("/chat", async (req, res) => {
     console.log("FULL COHERE RESPONSE:");
     console.log(JSON.stringify(response.data, null, 2));
 
-    const reply =
-      response.data.message?.content?.[0]?.text;
+    const reply = response.data.text;
 
     res.json({ reply });
 
