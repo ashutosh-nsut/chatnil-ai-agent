@@ -9,32 +9,50 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
+// app.post("/chat", async (req, res) => {
+//   try {
+//     const response = await axios.post(
+//       "https://api.cohere.ai/v1/chat",
+//       {
+//         model: "command-r-08-2024",
+//         message: req.body.message
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
+//           "Content-Type": "application/json"
+//         }
+//       }
+      
+//     );
+
+
+//     console.log("FULL COHERE RESPONSE:");
+//     console.log(JSON.stringify(response.data, null, 2));
+
+//     const reply = response.data.text;
+
+//     res.json({ reply });
+
+//   } catch (error) {
+//     console.error(error.response?.data || error.message);
+//     res.status(500).json({ error: "Error calling Cohere" });
+//   }
+// });
+
 app.post("/chat", async (req, res) => {
   try {
-    const response = await axios.post(
-      "https://api.cohere.ai/v1/chat",
-      {
-        model: "command-r-08-2024",
-        message: req.body.message
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
-          "Content-Type": "application/json"
-        }
-      }
-    );
 
-    console.log("FULL COHERE RESPONSE:");
-    console.log(JSON.stringify(response.data, null, 2));
+    // simulate AI processing delay (800ms)
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-    const reply = response.data.text;
+    const reply = "Test response";
 
     res.json({ reply });
 
   } catch (error) {
-    console.error(error.response?.data || error.message);
-    res.status(500).json({ error: "Error calling Cohere" });
+    console.error(error.message);
+    res.status(500).json({ error: "Server error" });
   }
 });
 const PORT = process.env.PORT || 3000;
